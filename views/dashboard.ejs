@@ -1,0 +1,25 @@
+<!-- dashboard.ejs -->
+<%- include('../views/layout', { user: user }) %>
+
+<h2>Dashboard</h2>
+
+<form action="/tasks/add" method="POST">
+    <input type="text" name="task" placeholder="New Task" required>
+    <button type="submit">Add Task</button>
+</form>
+
+<ul>
+    <% tasks.forEach(task => { %>
+        <li>
+            <%= task.task %>
+            <% if (!task.completed) { %>
+                <form action="/tasks/complete/<%= task._id %>" method="POST">
+                    <button type="submit">Complete</button>
+                </form>
+            <% } %>
+            <form action="/tasks/delete/<%= task._id %>" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    <% }); %>
+</ul>
